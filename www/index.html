@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!--  Markup (C) James Palawaga 2016 except where otherwise noted. -->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.css" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <title>Hello World</title>
+    </head>
+    <body> 
+        <div id="home" data-role="page">
+            <div data-role="content">
+                <div class="beerEntry" onclick="alert('loading beer 19');">
+                    <div class="info">
+                        Driftwood Farmhand
+                        <span class="date">March 10, 2016</span>
+                    </div>
+                    <div class="rating">
+                        <img src="img/star.svg">
+                        <img src="img/star.svg">
+                        <img src="img/star.svg">
+                        <img src="img/star.svg">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="welcome-screen" data-role="page">
+            <div data-role="content">
+                <h1>Beer Name:</h1>
+                    <div class="input-box">
+                        <input type="text" id="nameBox" autocorrect="false" autocomplete="off" spellcheck="false" tabindex="0"></div>
+                    <div id="width-calc"></div> <!-- ghost element for sz calc -->
+                <a data-transition="slide" href="#pagetwo">
+                    <button id="welcome-pass"> I'll pass. </button>
+                </a>
+            </div>
+        </div>
+
+        <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script>     
+            // hide unsightly stuff while jqm loads
+            $('html').hide()
+            $(document).ready(function() {
+              $('html').show();
+            });
+      </script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </body>
+</html>

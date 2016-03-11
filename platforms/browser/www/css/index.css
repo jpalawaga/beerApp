@@ -1,0 +1,298 @@
+/** All CSS is (C) James Palawaga 2016 -- All rights Resrved **/
+
+body{
+    -webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
+    padding:0; 
+    margin:0;
+}
+
+.beerEntry {
+  border-bottom: 1px solid #ccc;
+  height:7vh;
+}
+
+/* We don't want the add button to ever block anything. */
+.beerEntry:last-child {
+  margin-bottom:10vh;
+}
+
+.beerEntry img {
+  width:5vw;
+}
+
+.beerEntry .info {
+    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    float: left;
+}
+
+.beerEntry .info .date {
+    color: #666;
+    display:block;
+    font-size:2vh;
+}
+
+.beerEntry .rating {
+  float:right;
+}
+
+.beerEntry .rating:after {
+  float: none;
+}
+
+
+
+/** Old styles **/
+
+#welcome-screen {
+    background-color:#3a92c9;
+    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    font-size:30pt;
+    height:100%;
+    padding-top:0px;
+    padding:0px;
+    width:100%;
+    position:fixed;             /* position in the center of the screen */
+                                   /* offset horizontal: half of text area width */
+}
+
+#welcome-screen a {
+    text-decoration: none;
+}
+
+#pagetwo {
+    /* prevent callout to copy image, etc when tap to hold */
+    -webkit-touch-callout: none; 
+
+    /* prevent webkit from resizing text to fit */
+    -webkit-text-size-adjust: none; 
+
+    /* prevent copy paste, to allow, change 'none' to 'text' */
+    -webkit-user-select: none; 
+    background-color: #EEE;
+}
+
+#pagetwo #summary.ui-panel { 
+    width: 80vw; 
+    background-color: rgba(58, 146, 201, 0.95);
+}
+
+#pagetwo #summary .ui-panel-inner {
+    display:inline-block;
+    padding: 0;
+    width:100%;
+}
+
+#summary .panel-content {
+    font-size:15vw;
+    line-height:16vw;
+    margin-left:2vw;
+    margin-top:2vh;
+    word-wrap: break-word;
+    color: #EEE;
+    width:99%;
+}
+
+#summary .review {
+  margin-top: 5vh;
+}
+
+#summary span {
+  color: #21497D;
+  width: inherit;
+}
+
+#summary h1 {
+  font-size:5vh;
+  line-height:5vh;
+  font-weight:normal;
+  margin-bottom:1vh;
+  color:#CDE8FF;
+}
+
+#summary .panel-content li {
+  font-size: 5vh;
+  line-height:6vh;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+#summary .panel-content ol {
+  margin: 2vh 0 0 11vw;
+}
+
+#welcome-screen h1 {
+    margin-top:20%;
+    color: #fff;
+    text-align: center;
+}
+
+#welcome-screen .input-box{
+    display:block;
+    text-align:center;
+}
+#welcome-screen .input-box:after {
+    color: #FFF;
+    content: ".";
+}
+#welcome-screen #width-calc:after {
+    color: #FFF;
+    content: ".";
+}
+
+#welcome-screen #nameBox{
+    display:inline-block;
+    margin-left:auto;
+    margin-right: auto;
+    font-size:inherit;
+    border:0;
+    background-color:inherit;
+    color: #fff;
+    text-align:center;
+    max-width:100%;
+    overflow:hidden;
+    height:60px;
+    margin-right:0px;
+    border-bottom: 5px solid #FFF;
+
+}
+
+#welcome-screen input:after{
+    content: "test";
+}
+
+#width-calc {
+    position: absolute;
+    visibility: hidden;
+    height: auto;
+    width: auto;
+    font-size:inherit;
+    white-space:pre;
+}
+
+#welcome-pass {
+    display:block;
+    background-color:#6fc0fc;
+    color: #2B7FB3;
+    border: 0;
+    margin-top:30%;
+    margin-left:auto;
+    margin-right:auto;
+    padding:2%;
+    font-size:.6em;
+    text-align:center;
+    -webkit-box-shadow: 0px 3px 10px -2px rgba(0,0,0,.2);
+    -moz-box-shadow: 0px 3px 10px -2px rgba(0,0,0,.2);
+    box-shadow: 0px 3px 10px -2px rgba(0,0,0,.2);
+    border-radius:5px;
+    outline: none;
+}
+
+#welcome-pass:active {
+    background-color:#4598d6;
+    outline:none;
+}
+
+#welcome-screen input:focus{
+    outline: none;
+    border: 0;
+    text-decoration: none;
+}
+
+#lapButton {
+    width:80vw;
+    height: 10vh;
+    line-height:10vh;
+    font-size:20pt;
+    text-align:center;
+    padding:1vh;
+    background-color:#FFF;
+    position:relative;
+    z-index:100;
+    box-shadow: 2px 2px 8px -1px rgba(0, 0, 0, 0.2);
+    border-radius: 11px;
+    overflow:hidden;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+#lapButton .background {
+    position:absolute;
+    left:0;
+    top:0;
+    bottom:0;
+    width:0%;
+    background-color:#58C560;
+    z-index:-20;
+}
+
+#startButton {
+    touch-action: manipulation;
+    width:80vw;
+    height: 10vh;
+    line-height:10vh;
+    font-size:20pt;
+    text-align:center;
+    padding:1vh;
+    background-color:#FFF;
+    position:relative;
+    z-index:100;
+    box-shadow: 2px 2px 8px -1px rgba(0, 0, 0, 0.2);
+    border-radius: 11px;
+    overflow:hidden;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+#startButton .background {
+    position:absolute;
+    left:0;
+    top:0;
+    bottom:0;
+    width:0%;
+    background-color:#58C560;
+    z-index:-20;
+}
+
+#stopButton {
+  position: fixed;
+  top:0;
+  right:0;
+  left:0;
+  height:10vh;
+  line-height:10vh;
+  text-align:center;
+  background-color: #FF9A9A;
+  font-size:5vh;
+  color: #FFF;
+  box-shadow: 0px 1px 14px 0px rgba(0,0,0,0.2);
+}
+
+#stopButton .background {
+    position:absolute;
+    left:0;
+    top:0;
+    bottom:0;
+    width:0%;
+    background-color:#8A4343;
+    z-index:-20;
+}
+
+#timer {
+    width:100%;
+    height:20vw;
+    font-size:20vw;
+    text-align:center;
+    color: #666;
+    margin:15vh 0 5vh;
+    text-shadow:2px 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+#elapsedBox {
+    text-align:center;
+    width:100%;
+    color: #666;
+    text-shadow:2px 2px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom:5vh;
+}
