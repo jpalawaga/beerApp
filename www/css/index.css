@@ -1,17 +1,51 @@
 /** All CSS is (C) James Palawaga 2016 -- All rights Resrved **/
 
-body{ padding:0; margin:0;}
+body{
+    -webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
+    padding:0; 
+    margin:0;
+}
+
+.beerEntry {
+  border-bottom: 1px solid #ccc;
+  height:7vh;
+}
+
+/* We don't want the add button to ever block anything. */
+.beerEntry:last-child {
+  margin-bottom:10vh;
+}
 
 .beerEntry img {
   width:5vw;
 }
 
+.beerEntry .info {
+    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    float: left;
+}
+
+.beerEntry .info .date {
+    color: #666;
+    display:block;
+    font-size:2vh;
+}
+
+.beerEntry .rating {
+  float:right;
+}
+
+.beerEntry .rating:after {
+  float: none;
+}
+
+
+
 /** Old styles **/
 
 #welcome-screen {
-       -webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
-    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
-    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
     background-color:#3a92c9;
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
     font-size:30pt;
