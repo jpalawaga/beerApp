@@ -314,13 +314,20 @@
         
         <div id="welcome-screen" data-role="page">
             <div data-role="content">
+                <div class="back">
+                    <a href="#home" data-transition="slide" data-direction="reverse">
+                        <img src="img/arrow.svg">
+                    </a>
+                </div>
+                <div class="forward">
+                    <a href="#home" data-transition="slide" data-direction="reverse">
+                        <img src="img/arrow.svg">
+                    </a>
+                </div>
                 <h1>Beer Name:</h1>
-                    <div class="input-box">
-                        <input type="text" id="nameBox" autocorrect="false" autocomplete="off" spellcheck="false" tabindex="0"></div>
-                    <div id="width-calc"></div> <!-- ghost element for sz calc -->
-                <a data-transition="slide" href="#pagetwo">
-                    <button id="welcome-pass"> I'll pass. </button>
-                </a>
+                <div class="input-box">
+                    <span id="nameBox" contenteditable="true" onclick="clearField()" oninput="resizeText()"><i>(Beer Name)</i></span>
+                </div>
             </div>
         </div>
 
