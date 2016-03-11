@@ -10,12 +10,30 @@ body{
 
 .beerEntry {
   border-bottom: 1px solid #ccc;
+  margin-bottom:2vh;
   height:7vh;
 }
 
+#addButton {
+    position:fixed;
+    bottom: 5vw;
+    right: 5vw;
+    background-color: red;
+    color: #FFF;
+    text-align:center;
+    line-height:14vw;
+    font-size:10vw;
+    width: 15vw;
+    height: 15vw;
+    border-radius:100vw;
+    -webkit-box-shadow: 0px 3px 10px -2px rgba(0,0,0,.7);
+    -moz-box-shadow: 0px 3px 10px -2px rgba(0,0,0,.7);
+    box-shadow: 0px 3px 10px -2px rgba(0,0,0,.7);
+}
+
 /* We don't want the add button to ever block anything. */
-.beerEntry:last-child {
-  margin-bottom:10vh;
+div#home article:last-of-type {
+  margin-bottom:20vh;
 }
 
 .beerEntry img {
