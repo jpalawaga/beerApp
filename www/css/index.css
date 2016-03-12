@@ -65,6 +65,66 @@ div#home article:last-of-type {
   position:fixed;
   top: 5vw;
   left: 5vw;
+  margin-bottom:10vh;
+}
+
+/* http://stackoverflow.com/a/31798349*/
+.star-left {
+  -webkit-mask: url('../img/star.svg') no-repeat 0 100%;
+   mask: url(star.svg) no-repeat 0 100%;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+  background-color: yellow;
+  width: 4.9vw;
+  height: 10vw;
+  display:inline-block;
+}
+
+.starbox {
+  display: inline-block;
+}
+
+.star-right {
+  -webkit-mask: url('../img/star.svg') no-repeat 102% 100%;
+   mask: url(star.svg) no-repeat 100% 100%;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+  background-color: yellow;
+  width: 4.9vw;
+  height: 10vw;
+  display:inline-block;
+}
+
+.gray {
+  background-color: #ccc;
+}
+
+.reverse {
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}
+
+#ratingWidget {
+  width: 50vw;
+
+  height:10vh;
+  font-size:0;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+#ratingWidget img {
+  height:10vw;
+}
+
+#ratingWidget img:hover {
+  filter: none; /* works for firefox */
+  -webkit-filter: none; /*for chrome/ safari */
+  -webkit-transition: none;
 }
 
 .forward img {
@@ -101,9 +161,9 @@ div#home article:last-of-type {
 }
 
 #welcome-screen h1 {
-    margin-top:20%;
     color: #fff;
-    text-align: center;
+    margin-bottom: 4vh;
+    margin-top: 5vh;
 }
 
 #welcome-screen .input-box{

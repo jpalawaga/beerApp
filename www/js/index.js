@@ -47,3 +47,53 @@ function resizeText() {
         textBox.setAttribute('style', 'font-size:' + newSize + 'px;');
     }
 }
+
+var startX = null;
+var startStar = null;
+// Rating Widget stuff
+function updateStarStates(e) {
+  // This is going to be very specific T_T.
+  var starWidthVW = 5;
+  var pixelsPerStar = $(window).width() * (starWidthVW / 100.0);
+
+  var dragDistance = e.clientX - startX;
+  var TotalStars = dragDistance/pixelsPerStar;
+  var halvesToAdjust = Math.floor(TotalStars);
+
+  updateStars(startStar + halvesToAdjust);
+
+  //console.log(dragDistance + " (or " + TotalStars + " stars)");
+}
+
+// Given a star ID, grays everything above it!
+// Not the most efficient, since we update all of the stars rather
+// than just the necessary ones.
+function updateStars(starId) {
+  console.log('current Star: ' + starId)
+  for (i = 0; i <= 10; i++) {
+    if (i > starId) {
+      $('#star-' + i).addClass('gray');
+    } else {
+      $('#star-' + i).removeClass('gray');
+    }
+  }
+}
+
+$(".starbox").bind('vmousedown', mouseHandler);
+$(".starbox").bind('vmousedown', mouseHandler);
+    
+$(".starbox").bind('touchstart', function() { console.log('ooh')});
+
+function mouseHandler(e) {
+  startX = e.clientX;
+  startStar = parseInt(e.currentTarget.children[0].id.substring(5));
+  console.log('star: ' + startStar);
+  updateStars(startStar);
+  $("body").bind('vmousemove', updateStarStates);
+
+  // Clean up the bindings when done.
+  $("body").bind('vmouseup', function() {
+    $("body").unbind('vmousemove', updateStarStates);
+    $("body").unbind('vmouseup', this);
+  });
+};
