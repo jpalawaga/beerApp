@@ -6,6 +6,33 @@ function init() {
     isBrowser = window.cordova.platformId == 'browser';
 }
 
+// FULLY aware of brokeness that might arise at scale with this
+// but we're using fucking store.js so who cares.
+function listBeers() {
+    beers = [];
+    store.forEach(function(item) {
+      beers.push(store.get(item))
+    });
+    
+    function dateComp(a, b) {
+      return new Date(b.date) - new Date(a.date);
+    }
+
+    function ratingComp(a, b) {
+      aRating = a.rating * 10000000000 + (new Date(a.date).getTime() / 1000)
+      bRating = b.rating * 10000000000 + (new Date(b.date).getTime() / 1000)
+      return bRating - aRating;
+    }
+
+    beers.sort(ratingComp);
+
+    // Just display it now
+    beers.forEach(function(i, idx) {
+      console.log(idx + ': ' + i.title);
+    });
+
+}
+
 function beginAddBeerFlow() {
     // This will simply get an image from the camera
     opts = {
