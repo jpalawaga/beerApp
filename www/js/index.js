@@ -14,28 +14,57 @@ function beginAddBeerFlow() {
     };
 
     if (!isBrowser) {
-    navigator.camera.getPicture(cameraSuccessAddTitle, cameraFailure, opts);
+      navigator.camera.getPicture(cameraSuccessAnnotate, cameraFailure, opts);
     } else {
       // Browsers don't have cameras: mock.
-      cameraSuccessAddTitle({FILE_URI: 'img/sample.png'});
+      cameraSuccessAnnotate('img/sample.png');
     }
 }
 
-function clearField() {
-    $("#nameBox").html('');
+function clearField(ctx) {
+    ctx.style.fontStyle = 'normal';
+    ctx.innerHTML = '';
 }
 
-function cameraSuccessAddTitle(image) {
+var entryData = {
+  image: null,
+  loc: null,
+  title: null,
+  rating: null,
+  notes: null,
+  date: null,
+};
+
+function cameraSuccessAnnotate(image) {
+    entryData.image = image;
     $('#welcome-screen')[0].style.background = "linear-gradient(rgba(178, 189, 11, 0.45), rgba(178, 189, 11, 0.45)), url('"+image+"')"
     // Hack to avoid stupid soft keyboard resizing.
     $('#welcome-screen')[0].style.backgroundSize = "" +$(window).width() + "px " + $(window).height() + "px";
     $(":mobile-pagecontainer").pagecontainer("change", $("#welcome-screen"));
+    navigator.geolocation.getCurrentPosition(recordCoords, function(){});
+}
+
+function recordCoords(geo) {
+    loc = {
+       lat: geo.coords.latitude,
+       lon: geo.coords.longitude,
+    }
+    entryData.loc = loc;
 }
 
 function cameraFailure(error) {
     alert('Failed to grab image :(');
     $(":mobile-pagecontainer").pagecontainer("change", $("#home"));
 } 
+
+function completeEntry() {
+    entryData.title = $('#nameBox').html();
+    entryData.notes = $('#tastingNotes').val();
+    entryData.rating = parseInt($('#rating').val());
+    entryData.date = new Date();
+    store.set(uuid(), entryData);
+    console.log(entryData); 
+}
 
 function resizeText() {
     var textBox = document.getElementById('nameBox');
@@ -69,7 +98,14 @@ function updateStarStates(e) {
 // Not the most efficient, since we update all of the stars rather
 // than just the necessary ones.
 function updateStars(starId) {
-  console.log('current Star: ' + starId)
+  if (starId > 10) {
+    starId = 10;
+  } else if (starId < 0) {
+    starId = 0;
+  }
+
+  $('#rating').val(starId);
+
   for (i = 0; i <= 10; i++) {
     if (i > starId) {
       $('#star-' + i).addClass('gray');
@@ -79,15 +115,11 @@ function updateStars(starId) {
   }
 }
 
-$(".starbox").bind('vmousedown', mouseHandler);
-$(".starbox").bind('vmousedown', mouseHandler);
+$(".starbox").bind('vmousedown', starTouchBindingHandler);
     
-$(".starbox").bind('touchstart', function() { console.log('ooh')});
-
-function mouseHandler(e) {
+function starTouchBindingHandler(e) {
   startX = e.clientX;
   startStar = parseInt(e.currentTarget.children[0].id.substring(5));
-  console.log('star: ' + startStar);
   updateStars(startStar);
   $("body").bind('vmousemove', updateStarStates);
 
@@ -97,3 +129,16 @@ function mouseHandler(e) {
     $("body").unbind('vmouseup', this);
   });
 };
+
+// Generate uuid. I could use anything to store the entries
+// but WHY NOT?
+// http://stackoverflow.com/a/2117523
+function uuid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
+}

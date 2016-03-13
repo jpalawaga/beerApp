@@ -319,14 +319,14 @@
                         <img src="img/arrow.svg">
                     </a>
                 </div>
-                <div class="forward">
+                <div class="forward" onclick="completeEntry()">
                     <a href="#home" data-transition="slide" data-direction="reverse">
                         <img src="img/arrow.svg">
                     </a>
                 </div>
                 <h1>beer name</h1>
                 <div class="input-box">
-                    <span id="nameBox" contenteditable="true" onclick="clearField()" oninput="resizeText()"><i>(Beer Name)</i></span>
+                    <span id="nameBox" contenteditable="true" onclick="clearField(this)" oninput="resizeText()">(Beer Name)</span>
                 </div>
                 <h1>rating</h1>
                 <div id="ratingWidget">
@@ -336,9 +336,10 @@
                   <div class="starbox"><div class="star-left" id="star-7"></div></div><div class="starbox"><div class="star-right" id="star-8"></div></div>
                   <div class="starbox"><div class="star-left" id="star-9"></div></div><div class="starbox"><div class="star-right" id="star-10"></div></div>
                 </div>
+                <input type="hidden" id="rating" value="10">
                 <h1>tasting notes</h1>
                 <div class="input-box">
-                    <span id="nameBox" contenteditable="true" onclick="clearField()"><i>(How did the beer make you feel?)</i></span>
+                    <textarea id="tastingNotes" onclick="clearField(this)">(How did the beer make you feel?)</textarea>
                 </div>
             </div>
             </div>
@@ -355,5 +356,6 @@
         <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/store.min.js"></script>
     </body>
 </html>
