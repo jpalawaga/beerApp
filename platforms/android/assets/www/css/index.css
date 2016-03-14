@@ -10,7 +10,7 @@ body{
 
 .beerEntry {
   border-bottom: 1px solid #ccc;
-  margin-bottom:2vh;
+  margin:0 2vw 2vh 2vw;
   height:7vh;
 }
 
@@ -18,7 +18,7 @@ body{
     position:fixed;
     bottom: 5vw;
     right: 5vw;
-   ackground-color: red;
+    background-color: red;
     color: #FFF;
     text-align:center;
     line-height:14vw;
@@ -37,7 +37,8 @@ div#home article:last-of-type {
 }
 
 .beerEntry img {
-  width:5vw;
+  margin-top:.5vh;
+  height:5vw;
 }
 
 .beerEntry .info {
@@ -59,6 +60,63 @@ div#home article:last-of-type {
   float: none;
 }
 
+#beerReview {
+  background-image: url('../img/sample.png');
+  color: #FFF;
+  font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+}
+
+.ui-content {
+  margin: 0;
+  padding: 0;
+}
+
+#infoLayer {
+  position: relative;
+  width: 100vw;
+  height: 95vh;
+}
+
+#detailName {
+  position: absolute;
+  bottom: 2vw;;
+  left: 2vw;
+  font-size:5vw;
+}
+
+#detailRating {
+  position: absolute;
+  bottom: 2vw;
+  right: 2vw;
+}
+
+.band {
+  position: absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  height:7vh;
+  background-color: rgba(0,0,0,0.5);
+}
+
+#detailRating img {
+  height:5vw;
+}
+
+.input-box #tastingNotes {
+  text-align:left;
+  color: #FFF; 
+  font-size:12pt;
+  display:block;
+  background: none;
+  border: 0;
+  resize: none;
+  outline: none;
+  width: 100%;
+  font-style:italic;
+  font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+}
+
 .back img {
   width: 6vw;
   height: 6vw;
@@ -75,18 +133,22 @@ div#home article:last-of-type {
   -webkit-mask-size: cover;
   mask-size: cover;
   background-color: yellow;
-  width: 5vw;
+  width: 4.9vw;
   height: 10vw;
   display:inline-block;
 }
 
+.starbox {
+  display: inline-block;
+}
+
 .star-right {
-  -webkit-mask: url('../img/star.svg') no-repeat 100% 100%;
+  -webkit-mask: url('../img/star.svg') no-repeat 102% 100%;
    mask: url(star.svg) no-repeat 100% 100%;
   -webkit-mask-size: cover;
   mask-size: cover;
   background-color: yellow;
-  width: 5vw;
+  width: 4.9vw;
   height: 10vw;
   display:inline-block;
 }
@@ -106,6 +168,8 @@ div#home article:last-of-type {
 
 #ratingWidget {
   width: 50vw;
+  margin-top:5vh;
+  height:10vh;
   font-size:0;
   margin-left:auto;
   margin-right:auto;
@@ -156,7 +220,7 @@ div#home article:last-of-type {
 
 #welcome-screen h1 {
     color: #fff;
-    margin-bottom: 4vh;
+    margin-bottom: 2vh;
     margin-top: 5vh;
 }
 
@@ -177,9 +241,7 @@ div#home article:last-of-type {
     max-width:100%;
     min-width:10vw;
     overflow:hidden;
-    margin-right:0px;
     border-bottom: 5px solid #FFF;
-
 }
 
 #welcome-pass:active {

@@ -13,7 +13,7 @@
     </head>
     <body> 
         <div id="home" data-role="page">
-            <div data-role="content">
+            <div id="beerList" data-role="content">
                 <article>
                     <div class="beerEntry" onclick="alert('loading beer 19');">
                         <div class="info">
@@ -308,10 +308,34 @@
                         </div>
                     </div>
                 </article>
-                <div id="addButton" onclick="beginAddBeerFlow()">+</div>
             </div>
+            <div id="addButton" onclick="beginAddBeerFlow()">+</div>
         </div>
         
+        <div id="beerReview" data-role="page">
+            <div data-role="content">
+                <div class="back">
+                    <a href="#home" data-transition="slide" data-direction="reverse">
+                        <img src="img/arrow.svg">
+                    </a>
+                </div>
+                <div id="infoLayer">
+                    <div class="band">
+                      <div id="detailName">Duff Beer</div>
+                      <div id="detailRating">
+                          <img src="img/star.svg">
+                          <img src="img/star.svg">
+                          <img src="img/star.svg">
+                          <img src="img/star.svg">
+                      </div>
+                    </div>
+                </div>
+                <h1>notes</h1>
+                <div id="detailNotes">So cool.</div>
+            </div>
+        </div>
+
+        <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
         <div id="welcome-screen" data-role="page">
             <div data-role="content">
                 <div class="back">
@@ -319,26 +343,27 @@
                         <img src="img/arrow.svg">
                     </a>
                 </div>
-                <div class="forward">
+                <div class="forward" onclick="completeEntry()">
                     <a href="#home" data-transition="slide" data-direction="reverse">
                         <img src="img/arrow.svg">
                     </a>
                 </div>
-                <h1>beer name:</h1>
+                <h1>beer name</h1>
                 <div class="input-box">
-                    <span id="nameBox" contenteditable="true" onclick="clearField()" oninput="resizeText()"><i>(Beer Name)</i></span>
+                    <span id="nameBox" contenteditable="true" onclick="clearField(this)" oninput="resizeText()">(Beer Name)</span>
                 </div>
-                <h1>rating:</h1>
+                <h1>rating</h1>
                 <div id="ratingWidget">
-                  <div class="star-left" id="star-1"></div><div class="star-right" id="star-2"></div>
-                  <div class="star-left" id="star-3"></div><div class="star-right" id="star-4"></div>
-                  <div class="star-left" id="star-5"></div><div class="star-right" id="star-6"></div>
-                  <div class="star-left" id="star-7"></div><div class="star-right gray" id="star-8"></div>
-                  <div class="star-left gray" id="star-9"></div><div class="star-right gray" id="star-10"></div>
+                  <div class="starbox"><div class="star-left" id="star-1"></div></div><div class="starbox"><div class="star-right" id="star-2"></div></div>
+                  <div class="starbox"><div class="star-left" id="star-3"></div></div><div class="starbox"><div class="star-right" id="star-4"></div></div>
+                  <div class="starbox"><div class="star-left" id="star-5"></div></div><div class="starbox"><div class="star-right" id="star-6"></div></div>
+                  <div class="starbox"><div class="star-left" id="star-7"></div></div><div class="starbox"><div class="star-right" id="star-8"></div></div>
+                  <div class="starbox"><div class="star-left" id="star-9"></div></div><div class="starbox"><div class="star-right" id="star-10"></div></div>
                 </div>
-                <h1>tasting notes:</h1>
+                <input type="hidden" id="rating" value="10">
+                <h1>tasting notes</h1>
                 <div class="input-box">
-                    <span id="nameBox" contenteditable="true" onclick="clearField()"><i>(How did the beer make you feel?)</i></span>
+                    <textarea id="tastingNotes" onclick="clearField(this)">(How did the beer make you feel?)</textarea>
                 </div>
             </div>
             </div>
@@ -355,5 +380,6 @@
         <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/store.min.js"></script>
     </body>
 </html>

@@ -4,11 +4,31 @@ document.addEventListener('deviceready', init, false);
 function init() {
     console.log("Set up and ready to rock!");
     isBrowser = window.cordova.platformId == 'browser';
+    listBeers();
 }
 
+function formatDate(d) {
+  months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+  return months[d.getMonth()] + " " + d.getDate() + ", " + (1900 + d.getYear());
+}
+
+// Generates a sequence of img tags based on the 10 -> 5 star rating conversion
+function generateStarImages(starRating) {
+    output = '';
+    for (stars = 0; stars < Math.floor(starRating / 2); stars++) {
+      output += '<img src="img/star.svg">';
+    }
+    if (starRating % 2 == 1) {
+      output += '<img src="img/half-star.svg">';
+    }
+
+    return output;
+}
+ 
 // FULLY aware of brokeness that might arise at scale with this
 // but we're using fucking store.js so who cares.
-function listBeers() {
+function listBeers(method) {
     beers = [];
     store.forEach(function(item) {
       beers.push(store.get(item))
@@ -24,15 +44,55 @@ function listBeers() {
       return bRating - aRating;
     }
 
-    beers.sort(ratingComp);
+    var ratingFunc = dateComp
 
-    // Just display it now
+    if (method == 'rating') {
+      ratingFunc = ratingComp;
+    }
+    beers.sort(ratingFunc);
+
+    // Just display it now. Ugly brittle html.
+    output = '';
     beers.forEach(function(i, idx) {
-      console.log(idx + ': ' + i.title);
+      output += '<article>';
+      output += '<div class="beerEntry" id="' + i.id + '">';
+      output += '<div class="info">';
+      output += i.title;
+      output += '<span class="date">';
+      output += formatDate(new Date(i.date));
+      output += '</span>';
+      output += '</div>';
+      output += '<div class="rating">';
+      output += generateStarImages(i.rating);
+      output += '</div>';
+      output += '</div>';
+      output += '</article>';
     });
 
+    $('#beerList').html(output);
+    $('.beerEntry').click(loadBeerClickHandler);
 }
 
+/** Everything for loading a beer detail page **/
+// loadBeer is meant to be called with a clickhandler.
+function loadBeerClickHandler(ev) {
+    loadBeer(ev.currentTarget.id);
+}
+
+function loadBeer(id) {
+    console.log('Loading ' + id);
+    var beer = store.get(id);
+    $('#detailName').html(beer.title);
+    $('#detailNotes').html(beer.notes);
+    $('#detailRating').html(generateStarImages(beer.rating));
+    $('#beerReviewBg')[0].style.backgroundImage = "url('"+beer.image+"')"
+    $('#beerReviewBg')[0].style.backgroundAttachment = "fixed";
+    $('#beerReviewBg')[0].style.backgroundSize = "auto 100vh";
+    //$('#detailMap').html(generateMap(beer.lat, beer.lon));
+    $(":mobile-pagecontainer").pagecontainer("change", $("#beerReview"));
+}
+
+/** Everything for handling adding new entries **/
 function beginAddBeerFlow() {
     // This will simply get an image from the camera
     opts = {
@@ -54,6 +114,7 @@ function clearField(ctx) {
 }
 
 var entryData = {
+  id: null,
   image: null,
   loc: null,
   title: null,
@@ -89,7 +150,9 @@ function completeEntry() {
     entryData.notes = $('#tastingNotes').val();
     entryData.rating = parseInt($('#rating').val());
     entryData.date = new Date();
-    store.set(uuid(), entryData);
+    entryData.id = uuid();
+    store.set(entryData.id, entryData);
+    listBeers(); // Refresh the list with the new entry
     console.log(entryData); 
 }
 

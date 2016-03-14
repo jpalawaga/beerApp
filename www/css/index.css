@@ -8,10 +8,15 @@ body{
     margin:0;
 }
 
+#home {
+  background-color: #D7DDE0;
+}
+
 .beerEntry {
+  background-color:#FFF;
   border-bottom: 1px solid #ccc;
-  margin-bottom:2vh;
-  height:7vh;
+  padding:1vh 2vw 1vh 2vw;
+  height:5vh;
 }
 
 #addButton {
@@ -21,7 +26,7 @@ body{
     background-color: red;
     color: #FFF;
     text-align:center;
-    line-height:14vw;
+    line-height:15vw;
     font-size:10vw;
     width: 15vw;
     height: 15vw;
@@ -34,10 +39,14 @@ body{
 /* We don't want the add button to ever block anything. */
 div#home article:last-of-type {
   margin-bottom:20vh;
+    -webkit-box-shadow: -1px 4px 9px -1px rgba(0,0,0,.2);
+    -moz-box-shadow: -1px 4px 9px -1px rgba(0,0,0,.2);
+    box-shadow: -1px 4px 9px -1px rgba(0,0,0,.2);
 }
 
 .beerEntry img {
-  width:5vw;
+  margin-top:.5vh;
+  height:5vw;
 }
 
 .beerEntry .info {
@@ -57,6 +66,61 @@ div#home article:last-of-type {
 
 .beerEntry .rating:after {
   float: none;
+}
+
+#beerReview {
+  color: #FFF;
+}
+
+#beerReviewBg {
+  position:fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -100;
+  background-image: url('../img/sample.png');
+  background-size: 100vw 100vh;
+  background-attachment: fixed;
+  font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+}
+
+.ui-content {
+  margin: 0;
+  padding: 0;
+}
+
+#infoLayer {
+  position: relative;
+  width: 100vw;
+  height: 93vh;
+}
+
+#detailName {
+  position: absolute;
+  bottom: 2vw;;
+  left: 2vw;
+  font-size:5vw;
+}
+
+#detailRating {
+  position: absolute;
+  bottom: 2vw;
+  right: 2vw;
+  width: 25vw;
+}
+
+#detailRating img {
+  height:5vw;
+}
+
+.band {
+  position: absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  height:7vh;
+  background-color: rgba(0,0,0,0.5);
 }
 
 .input-box #tastingNotes {
@@ -80,6 +144,7 @@ div#home article:last-of-type {
   top: 5vw;
   left: 5vw;
   margin-bottom:10vh;
+  z-index: 100; /* render on top of everything */
 }
 
 /* http://stackoverflow.com/a/31798349*/
