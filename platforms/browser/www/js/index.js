@@ -33,7 +33,12 @@ function listBeers(method) {
     store.forEach(function(item) {
       beers.push(store.get(item))
     });
-    
+
+    // Early exit if nothing's changed
+    if ($('articles').length == beers.length) {
+      return;
+    }
+
     function dateComp(a, b) {
       return new Date(b.date) - new Date(a.date);
     }

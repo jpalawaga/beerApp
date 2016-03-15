@@ -12,11 +12,21 @@ body{
   background-color: #D7DDE0;
 }
 
+.no-beer {
+    margin-top:40vh;
+    width: 100%;
+    text-align:center;
+    font-size:3em;
+    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    color: #AFB8C7;
+}
+
 .beerEntry {
   background-color:#FFF;
   border-bottom: 1px solid #ccc;
   padding:1vh 2vw 1vh 2vw;
   height:5vh;
+  min-height:35px;
 }
 
 #addButton {
@@ -46,7 +56,7 @@ div#home article:last-of-type {
 
 .beerEntry img {
   margin-top:.5vh;
-  height:5vw;
+  height:5vh;
 }
 
 .beerEntry .info {
