@@ -3,20 +3,20 @@ document.addEventListener('deviceready', init, false);
 
 function init() {
     console.log("Set up and ready to rock!");
-    isBrowser = window.cordova.platformId == 'browser';
-    sortSwitcher('date')
+    isBrowser = window.cordova.platformId == 'browser'; // global so we can detect
+    sortSwitcher('date');
     listBeers();
 }
 
 function formatDate(d) {
-  months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
   return months[d.getMonth()] + " " + d.getDate() + ", " + (1900 + d.getYear());
 }
 
 // Generates a sequence of img tags based on the 10 -> 5 star rating conversion
 function generateStarImages(starRating) {
-    output = '';
+    var output = '';
     for (stars = 0; stars < Math.floor(starRating / 2); stars++) {
       output += '<img src="img/star.svg">';
     }
@@ -30,9 +30,9 @@ function generateStarImages(starRating) {
 // FULLY aware of brokeness that might arise at scale with this
 // but we're using fucking store.js so who cares.
 function listBeers(method) {
-    beers = [];
+    var beers = [];
     store.forEach(function(item) {
-      beers.push(store.get(item))
+      beers.push(store.get(item));
     });
 
     // Early exit if nothing's changed
@@ -45,16 +45,16 @@ function listBeers(method) {
     }
 
     function ratingComp(a, b) {
-      aRating = a.rating * 10000000000 + (new Date(a.date).getTime() / 1000)
-      bRating = b.rating * 10000000000 + (new Date(b.date).getTime() / 1000)
+      aRating = a.rating * 10000000000 + (new Date(a.date).getTime() / 1000);
+      bRating = b.rating * 10000000000 + (new Date(b.date).getTime() / 1000);
       return bRating - aRating;
     }
 
     function nameComp(a, b) {
-      return a.title.localeCompare(b.title)
+      return a.title.localeCompare(b.title);
     }
 
-    var ratingFunc = dateComp
+    var ratingFunc = dateComp;
 
     if (method == 'rating') {
       ratingFunc = ratingComp;
@@ -64,7 +64,7 @@ function listBeers(method) {
     beers.sort(ratingFunc);
 
     // Just display it now. Ugly brittle html.
-    output = '';
+    var output = '';
     beers.forEach(function(i, idx) {
       output += '<article>';
       output += '<div class="beerEntry" id="' + i.id + '">';
@@ -121,7 +121,7 @@ function sortSwitcher(sortName) {
 /** Everything for handling adding new entries **/
 function beginAddBeerFlow() {
     // This will simply get an image from the camera
-    opts = {
+    var opts = {
       quality:100,
       saveToPhotoAlbum: true,
       correctOrientation: true
@@ -152,7 +152,7 @@ var entryData = {
 
 function cameraSuccessAnnotate(image) {
     entryData.image = image;
-    $('#welcome-screen')[0].style.background = "linear-gradient(rgba(178, 189, 11, 0.45), rgba(178, 189, 11, 0.45)), url('"+image+"')"
+    $('#welcome-screen')[0].style.background = "linear-gradient(rgba(178, 189, 11, 0.45), rgba(178, 189, 11, 0.45)), url('"+image+"')";
     // Hack to avoid stupid soft keyboard resizing.
     $('#welcome-screen')[0].style.backgroundSize = "" +$(window).width() + "px " + $(window).height() + "px";
     $(":mobile-pagecontainer").pagecontainer("change", $("#welcome-screen"));
@@ -160,10 +160,10 @@ function cameraSuccessAnnotate(image) {
 }
 
 function recordCoords(geo) {
-    loc = {
+    var loc = {
        lat: geo.coords.latitude,
        lon: geo.coords.longitude,
-    }
+    };
     entryData.loc = loc;
 }
 
@@ -193,8 +193,8 @@ function resizeText() {
     var maximumSize = textBox.parentNode.clientWidth;
 
     while (textBox.clientWidth >= maximumSize) {
-        fontSize = window.getComputedStyle(textBox, null).fontSize;
-        newSize = parseInt(fontSize.substring(0, fontSize.length - 2)) - 2;
+        var fontSize = window.getComputedStyle(textBox, null).fontSize;
+        var newSize = parseInt(fontSize.substring(0, fontSize.length - 2)) - 2;
         textBox.setAttribute('style', 'font-size:' + newSize + 'px;');
     }
 }
@@ -240,8 +240,8 @@ function updateStars(starId) {
 $(".starbox").bind('vmousedown', starTouchBindingHandler);
     
 function starTouchBindingHandler(e) {
-  startX = e.clientX;
-  startStar = parseInt(e.currentTarget.children[0].id.substring(5));
+  var startX = e.clientX;
+  var startStar = parseInt(e.currentTarget.children[0].id.substring(5));
   updateStars(startStar);
   $("body").bind('vmousemove', updateStarStates);
 
