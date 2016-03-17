@@ -195,13 +195,23 @@ div#home article:last-of-type {
   font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
 }
 
+.back {
+  width: 8.25vw;
+  height: 8.25vw;
+  border-radius:100px;
+  margin-bottom:2vh;
+  background-color:rgba(0,0,0,0.5);
+  margin-top:5vw;
+  margin-left:5vw;
+  z-index: 99; /* render on top of everything */
+}
+
+
 .back img {
   width: 6vw;
   height: 6vw;
-  position:fixed;
-  top: 5vw;
-  left: 5vw;
-  margin-bottom:10vh;
+  margin-top:1vw;
+  margin-left:1vw;
   z-index: 100; /* render on top of everything */
 }
 
