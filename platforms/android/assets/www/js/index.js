@@ -4,6 +4,7 @@ document.addEventListener('deviceready', init, false);
 function init() {
     console.log("Set up and ready to rock!");
     isBrowser = window.cordova.platformId == 'browser';
+    sortSwitcher('date')
     listBeers();
 }
 
@@ -13,7 +14,19 @@ function formatDate(d) {
   return months[d.getMonth()] + " " + d.getDate() + ", " + (1900 + d.getYear());
 }
 
+// Generates a sequence of img tags based on the 10 -> 5 star rating conversion
+function generateStarImages(starRating) {
+    output = '';
+    for (stars = 0; stars < Math.floor(starRating / 2); stars++) {
+      output += '<img src="img/star.svg">';
+    }
+    if (starRating % 2 == 1) {
+      output += '<img src="img/half-star.svg">';
+    }
 
+    return output;
+}
+ 
 // FULLY aware of brokeness that might arise at scale with this
 // but we're using fucking store.js so who cares.
 function listBeers(method) {
@@ -21,7 +34,12 @@ function listBeers(method) {
     store.forEach(function(item) {
       beers.push(store.get(item))
     });
-    
+
+    // Early exit if nothing's changed
+    if ($('articles').length == beers.length) {
+      return;
+    }
+
     function dateComp(a, b) {
       return new Date(b.date) - new Date(a.date);
     }
@@ -32,10 +50,16 @@ function listBeers(method) {
       return bRating - aRating;
     }
 
-    var ratingFunc = ratingComp
+    function nameComp(a, b) {
+      return a.title.localeCompare(b.title)
+    }
 
-    if (method == 'date') {
-      ratingFunc = dateComp;
+    var ratingFunc = dateComp
+
+    if (method == 'rating') {
+      ratingFunc = ratingComp;
+    } else if (method == 'name') {
+      ratingFunc = nameComp;
     }
     beers.sort(ratingFunc);
 
@@ -51,18 +75,16 @@ function listBeers(method) {
       output += '</span>';
       output += '</div>';
       output += '<div class="rating">';
-      for (stars = 0; stars < Math.floor(i.rating / 2); stars++) {
-        output += '<img src="img/star.svg">';
-      }
-      if (i.rating % 2 == 1) {
-        output += '<img src="img/half-star.svg">';
-      }
+      output += generateStarImages(i.rating);
       output += '</div>';
       output += '</div>';
       output += '</article>';
     });
 
     $('#beerList').html(output);
+    $('#beerCount').html(beers.length)
+    console.log(beers.length);
+    // rebind our new elements
     $('.beerEntry').click(loadBeerClickHandler);
 }
 
@@ -77,10 +99,23 @@ function loadBeer(id) {
     var beer = store.get(id);
     $('#detailName').html(beer.title);
     $('#detailNotes').html(beer.notes);
-    $('#detailRating').html(beer.rating);
-    $('#beerReview')[0].style.background = "linear-gradient(rgba(178, 189, 11, 0.45), rgba(178, 189, 11, 0.45)), url('"+beer.image+"')"
-    //$('#detailMap').html(generateMap(beer.lat, beer.lon));
-    $(":mobile-pagecontainer").pagecontainer("change", $("#beerReview"));
+    $('#detailRating').html(generateStarImages(beer.rating));
+    $('#beerReviewBg').html('<img id="bgimg" src="'+beer.image+'">');
+    $(":mobile-pagecontainer").pagecontainer("change", $("#beerReview"), {transition: "slide"});
+    var map = '<iframe frameborder="0" src="https://www.google.com/maps/embed/v1/place?q='+beer.loc.lat+','+beer.loc.lon+'&key=AIzaSyAPPjIIgZhg4wBvD3JJeWwHA3-nHWPKEJE&zoom=16" style="width:100vw;"></iframe>';
+    $("#map").html(map);
+}
+
+$('.button').click(function(e) {
+    sortSwitcher(e.currentTarget.id.substring(5));
+    listBeers(prevSort);
+});
+
+var prevSort = 'rating';
+function sortSwitcher(sortName) {
+    $('#sort-' + prevSort).removeClass('selected');
+    $('#sort-' + sortName).addClass('selected');
+    prevSort = sortName;
 }
 
 /** Everything for handling adding new entries **/
@@ -88,7 +123,8 @@ function beginAddBeerFlow() {
     // This will simply get an image from the camera
     opts = {
       quality:100,
-      saveToPhotoAlbum: true
+      saveToPhotoAlbum: true,
+      correctOrientation: true
     };
 
     if (!isBrowser) {
@@ -132,17 +168,23 @@ function recordCoords(geo) {
 }
 
 function cameraFailure(error) {
-    alert('Failed to grab image :(');
+    if (!error.match('selected') && !error.match('cancelled')) {
+      alert('Failed to grab image :(');
+    }
     $(":mobile-pagecontainer").pagecontainer("change", $("#home"));
 } 
 
 function completeEntry() {
     entryData.title = $('#nameBox').html();
+    $('#nameBox').html('(Beer Name)');
     entryData.notes = $('#tastingNotes').val();
+    $('#tastingNotes').val('');
     entryData.rating = parseInt($('#rating').val());
     entryData.date = new Date();
     entryData.id = uuid();
     store.set(entryData.id, entryData);
+    sortSwitcher('date');
+    listBeers(); // Refresh the list with the new entry
     console.log(entryData); 
 }
 

@@ -1,6 +1,0 @@
-- Arrow can hide in bright backgrounds
-- Add beer: the top text squishes into the arrow. Maybe put this into a header?
-- Google maps API?
-- band the tasting notes?
-- Fix the home screen spacing (also: rating methods, total beers, material, etc)
-- Add a default screen when there are new entries.

@@ -3,9 +3,9 @@
     <name>beerApp</name>
     <description>Journal your beers.</description>
     <author email="j.palawaga@uleth.ca" href="http://jamespalawaga.com">James Palawaga</author>
+    <preference name="orientation" value="portrait" />
     <content src="index.html" />
     <preference name="permissions" value="none" />
-    <preference name="orientation" value="default" />
     <preference name="target-device" value="universal" />
     <preference name="fullscreen" value="true" />
     <preference name="webviewbounce" value="true" />

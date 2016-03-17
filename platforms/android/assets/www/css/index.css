@@ -8,10 +8,17 @@ body{
     margin:0;
 }
 
-.beerEntry {
-  border-bottom: 1px solid #ccc;
-  margin:0 2vw 2vh 2vw;
-  height:7vh;
+#home {
+  background-image: url('../img/bg.png');
+}
+
+.no-beer {
+    margin-top:40vh;
+    width: 100%;
+    text-align:center;
+    font-size:3em;
+    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    color: #AFB8C7;
 }
 
 #addButton {
@@ -21,7 +28,7 @@ body{
     background-color: red;
     color: #FFF;
     text-align:center;
-    line-height:14vw;
+    line-height:15vw;
     font-size:10vw;
     width: 15vw;
     height: 15vw;
@@ -34,22 +41,71 @@ body{
 /* We don't want the add button to ever block anything. */
 div#home article:last-of-type {
   margin-bottom:20vh;
+    -webkit-box-shadow: -1px 4px 9px -1px rgba(0,0,0,.2);
+    -moz-box-shadow: -1px 4px 9px -1px rgba(0,0,0,.2);
+    box-shadow: -1px 4px 9px -1px rgba(0,0,0,.2);
+}
+
+.button {
+    display: inline-block;
+}
+
+#sort {
+    float: right;
+    color: #B5B3B3;
+}
+
+#sort:after {
+    float: none;
+}
+
+.below-the-fold-information{
+    background-color: rgba(0,0,0,.5);
+}
+
+#homeHeader {
+    border:0;
+    color: #6D6969;
+    font-size:1.8em;
+    height:5vh;
+    min-height: 35px;
+    max-height:70px;
+    padding: 1vw;
+    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+}
+
+.selected {
+  color: #6F6C6C;
+  text-align:center;
+}
+
+.beerEntry {
+  background-color:#FFF;
+  border-bottom: 1px solid #ccc;
+  padding:1vh 2vw 1vh 2vw;
+  height:5vh;
+  min-height:35px;
 }
 
 .beerEntry img {
-  margin-top:.5vh;
-  height:5vw;
+  margin-top:1vh;
+  height:3vh;
 }
 
 .beerEntry .info {
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
     float: left;
+    width: 55vw;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+    font-size:1.1em;
 }
 
 .beerEntry .info .date {
     color: #666;
     display:block;
-    font-size:2vh;
+    font-size:.75em;
 }
 
 .beerEntry .rating {
@@ -61,9 +117,21 @@ div#home article:last-of-type {
 }
 
 #beerReview {
-  background-image: url('../img/sample.png');
   color: #FFF;
   font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+}
+
+#beerReviewBg {
+  position:fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -100;
+}
+
+#beerReviewBg img {
+  height: 100vh;
 }
 
 .ui-content {
@@ -74,7 +142,7 @@ div#home article:last-of-type {
 #infoLayer {
   position: relative;
   width: 100vw;
-  height: 95vh;
+  height: 82vh;
 }
 
 #detailName {
@@ -82,12 +150,21 @@ div#home article:last-of-type {
   bottom: 2vw;;
   left: 2vw;
   font-size:5vw;
+  width:70vw;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
 #detailRating {
   position: absolute;
   bottom: 2vw;
   right: 2vw;
+  width: 25vw;
+}
+
+#detailRating img {
+  height:5vw;
 }
 
 .band {
@@ -99,8 +176,9 @@ div#home article:last-of-type {
   background-color: rgba(0,0,0,0.5);
 }
 
-#detailRating img {
-  height:5vw;
+::-webkit-input-placeholder {
+  color: white;
+  font-style:italic;
 }
 
 .input-box #tastingNotes {
@@ -117,13 +195,24 @@ div#home article:last-of-type {
   font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
 }
 
+.back {
+  width: 8.25vw;
+  height: 8.25vw;
+  border-radius:100px;
+  margin-bottom:2vh;
+  background-color:rgba(0,0,0,0.5);
+  margin-top:5vw;
+  margin-left:5vw;
+  z-index: 99; /* render on top of everything */
+}
+
+
 .back img {
   width: 6vw;
   height: 6vw;
-  position:fixed;
-  top: 5vw;
-  left: 5vw;
-  margin-bottom:10vh;
+  margin-top:1vw;
+  margin-left:1vw;
+  z-index: 100; /* render on top of everything */
 }
 
 /* http://stackoverflow.com/a/31798349*/
@@ -242,6 +331,7 @@ div#home article:last-of-type {
     min-width:10vw;
     overflow:hidden;
     border-bottom: 5px solid #FFF;
+    -webkit-user-select : auto;
 }
 
 #welcome-pass:active {
