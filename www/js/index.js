@@ -4,6 +4,7 @@ document.addEventListener('deviceready', init, false);
 function init() {
     console.log("Set up and ready to rock!");
     isBrowser = window.cordova.platformId == 'browser';
+    sortSwitcher('date')
     listBeers();
 }
 
@@ -49,10 +50,16 @@ function listBeers(method) {
       return bRating - aRating;
     }
 
+    function nameComp(a, b) {
+      return a.title.localeCompare(b.title)
+    }
+
     var ratingFunc = dateComp
 
     if (method == 'rating') {
       ratingFunc = ratingComp;
+    } else if (method == 'name') {
+      ratingFunc = nameComp;
     }
     beers.sort(ratingFunc);
 
@@ -75,6 +82,9 @@ function listBeers(method) {
     });
 
     $('#beerList').html(output);
+    $('#beerCount').html(beers.length)
+    console.log(beers.length);
+    // rebind our new elements
     $('.beerEntry').click(loadBeerClickHandler);
 }
 
@@ -90,11 +100,22 @@ function loadBeer(id) {
     $('#detailName').html(beer.title);
     $('#detailNotes').html(beer.notes);
     $('#detailRating').html(generateStarImages(beer.rating));
-    $('#beerReviewBg')[0].style.backgroundImage = "url('"+beer.image+"')"
-    $('#beerReviewBg')[0].style.backgroundAttachment = "fixed";
-    $('#beerReviewBg')[0].style.backgroundSize = "auto 100vh";
-    //$('#detailMap').html(generateMap(beer.lat, beer.lon));
-    $(":mobile-pagecontainer").pagecontainer("change", $("#beerReview"));
+    $('#beerReviewBg').html('<img id="bgimg" src="'+beer.image+'">');
+    $(":mobile-pagecontainer").pagecontainer("change", $("#beerReview"), {transition: "slide"});
+    var map = '<iframe frameborder="0" src="https://www.google.com/maps/embed/v1/place?q='+beer.loc.lat+','+beer.loc.lon+'&key=AIzaSyAPPjIIgZhg4wBvD3JJeWwHA3-nHWPKEJE&zoom=16" style="width:100vw;"></iframe>';
+    $("#map").html(map);
+}
+
+$('.button').click(function(e) {
+    sortSwitcher(e.currentTarget.id.substring(5));
+    listBeers(prevSort);
+});
+
+var prevSort = 'rating';
+function sortSwitcher(sortName) {
+    $('#sort-' + prevSort).removeClass('selected');
+    $('#sort-' + sortName).addClass('selected');
+    prevSort = sortName;
 }
 
 /** Everything for handling adding new entries **/
@@ -102,7 +123,8 @@ function beginAddBeerFlow() {
     // This will simply get an image from the camera
     opts = {
       quality:100,
-      saveToPhotoAlbum: true
+      saveToPhotoAlbum: true,
+      correctOrientation: true
     };
 
     if (!isBrowser) {
@@ -146,17 +168,22 @@ function recordCoords(geo) {
 }
 
 function cameraFailure(error) {
-    alert('Failed to grab image :(');
+    if (!error.match('selected') && !error.match('cancelled')) {
+      alert('Failed to grab image :(');
+    }
     $(":mobile-pagecontainer").pagecontainer("change", $("#home"));
 } 
 
 function completeEntry() {
     entryData.title = $('#nameBox').html();
+    $('#nameBox').html('(Beer Name)');
     entryData.notes = $('#tastingNotes').val();
+    $('#tastingNotes').val('');
     entryData.rating = parseInt($('#rating').val());
     entryData.date = new Date();
     entryData.id = uuid();
     store.set(entryData.id, entryData);
+    sortSwitcher('date');
     listBeers(); // Refresh the list with the new entry
     console.log(entryData); 
 }

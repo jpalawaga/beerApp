@@ -9,7 +9,7 @@ body{
 }
 
 #home {
-  background-color: #D7DDE0;
+  background-image: url('../img/bg.png');
 }
 
 .no-beer {
@@ -19,14 +19,6 @@ body{
     font-size:3em;
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
     color: #AFB8C7;
-}
-
-.beerEntry {
-  background-color:#FFF;
-  border-bottom: 1px solid #ccc;
-  padding:1vh 2vw 1vh 2vw;
-  height:5vh;
-  min-height:35px;
 }
 
 #addButton {
@@ -54,20 +46,66 @@ div#home article:last-of-type {
     box-shadow: -1px 4px 9px -1px rgba(0,0,0,.2);
 }
 
-.beerEntry img {
-  margin-top:.5vh;
+.button {
+    display: inline-block;
+}
+
+#sort {
+    float: right;
+    color: #B5B3B3;
+}
+
+#sort:after {
+    float: none;
+}
+
+.below-the-fold-information{
+    background-color: rgba(0,0,0,.5);
+}
+
+#homeHeader {
+    border:0;
+    color: #6D6969;
+    font-size:1.8em;
+    height:5vh;
+    min-height: 35px;
+    max-height:70px;
+    padding: 1vw;
+    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+}
+
+.selected {
+  color: #6F6C6C;
+  text-align:center;
+}
+
+.beerEntry {
+  background-color:#FFF;
+  border-bottom: 1px solid #ccc;
+  padding:1vh 2vw 1vh 2vw;
   height:5vh;
+  min-height:35px;
+}
+
+.beerEntry img {
+  margin-top:1vh;
+  height:3vh;
 }
 
 .beerEntry .info {
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
     float: left;
+    width: 55vw;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+    font-size:1.1em;
 }
 
 .beerEntry .info .date {
     color: #666;
     display:block;
-    font-size:2vh;
+    font-size:.75em;
 }
 
 .beerEntry .rating {
@@ -80,6 +118,7 @@ div#home article:last-of-type {
 
 #beerReview {
   color: #FFF;
+  font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
 }
 
 #beerReviewBg {
@@ -89,10 +128,10 @@ div#home article:last-of-type {
   bottom: 0;
   right: 0;
   z-index: -100;
-  background-image: url('../img/sample.png');
-  background-size: 100vw 100vh;
-  background-attachment: fixed;
-  font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+}
+
+#beerReviewBg img {
+  height: 100vh;
 }
 
 .ui-content {
@@ -111,6 +150,10 @@ div#home article:last-of-type {
   bottom: 2vw;;
   left: 2vw;
   font-size:5vw;
+  width:70vw;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
 #detailRating {
@@ -131,6 +174,11 @@ div#home article:last-of-type {
   right:0;
   height:7vh;
   background-color: rgba(0,0,0,0.5);
+}
+
+::-webkit-input-placeholder {
+  color: white;
+  font-style:italic;
 }
 
 .input-box #tastingNotes {
@@ -273,6 +321,7 @@ div#home article:last-of-type {
     min-width:10vw;
     overflow:hidden;
     border-bottom: 5px solid #FFF;
+    -webkit-user-select : auto;
 }
 
 #welcome-pass:active {

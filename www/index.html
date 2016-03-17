@@ -9,11 +9,26 @@
 
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.css" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
         <title>BottomsApp!</title>
     </head>
     <body> 
         <div id="home" data-role="page">
-            0 Beers :(
+            <div id="homeHeader" data-role="header">
+              <span id="beerCount">0</span> Beers
+              <div id="sort">
+                  SORT
+                  <div class="button" id="sort-rating">
+                      <i class="glyphicon glyphicon-star" type="star"></i>
+                  </div>
+                  <div class="button selected" id="sort-date">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                  </div>
+                  <div class="button" id="sort-name">
+                      <i class="glyphicon glyphicon-font"></i>
+                  </div>
+              </div>
+            </div>
             <div id="beerList" data-role="content">
                 <div class="no-beer">So far, so dry!</div>
             </div>
@@ -23,7 +38,7 @@
         <div id="beerReview" data-role="page">
             <div data-role="content">
                 <!-- hack because background-attachment:fixed on mobile no worky -->
-                <div id="beerReviewBg"></div>
+                <div id="beerReviewBg"><img id="bgimg" src="img/sample.png"></div>
                 <div class="back">
                     <a href="#home" data-transition="slide" data-direction="reverse">
                         <img src="img/arrow.svg">
@@ -40,8 +55,13 @@
                       </div>
                     </div>
                 </div>
-                <h1>notes</h1>
-                <div id="detailNotes">So cool.</div>
+                <div class="below-the-fold-information">
+                    <h1>notes</h1>
+                    <div id="detailNotes">So cool.</div>
+
+                    <h1>map</h1>
+                    <div id="map"></div>
+                </div>
             </div>
         </div>
 
@@ -73,7 +93,7 @@
                 <input type="hidden" id="rating" value="10">
                 <h1>tasting notes</h1>
                 <div class="input-box">
-                    <textarea id="tastingNotes" onclick="clearField(this)">(How did the beer make you feel?)</textarea>
+                    <textarea id="tastingNotes" placeholder="(How did the beer make you feel?)" onclick="clearField(this)"></textarea>
                 </div>
             </div>
             </div>
